@@ -10,7 +10,7 @@ __pycache__/
 *.egg-info/
 
 # Virtual environment folder
-venv/
+.venv/
 env/
 agent_env/
 
