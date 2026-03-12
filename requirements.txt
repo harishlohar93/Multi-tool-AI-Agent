@@ -9,3 +9,4 @@ wikipedia
 streamlit
 python-dotenv
 groq
+reportlab-4.4.10

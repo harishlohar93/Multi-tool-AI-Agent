@@ -1,5 +1,6 @@
 import streamlit as st
 from agent import run_agent
+from utils import create_pdf
 import time
 
 
@@ -55,6 +56,12 @@ if "history" not in st.session_state:
 
 if "agent_steps" not in st.session_state:
     st.session_state.agent_steps = []
+    
+if "last_result" not in st.session_state:
+    st.session_state.last_result = None    
+
+if "last_query" not in st.session_state:
+    st.session_state.last_query = None     
 
 # ---------------------------
 # Layout
@@ -158,20 +165,42 @@ with col1:
                 status.update(label="✅ Research Complete", state="complete")
 
             final_text = stream_response(result)
-
-            # Reasoning panel
-            with st.expander("🧠 Agent reasoning"):
+            
+            # Reasoning expander
+            with st.expander("🧠 Agent Reasoning"):
                 st.write("""
 Step 1: Understand user query  
 Step 2: Select appropriate tool  
 Step 3: Retrieve data  
 Step 4: Analyze results  
 Step 5: Generate final answer
-""")
-
-        # Save history
+                """)
+ 
+        # Save to history
         st.session_state.history.append({
             "question": query,
             "answer": final_text
         })
-
+ 
+        # Save last result for PDF download
+        st.session_state.last_result = final_text
+        st.session_state.last_query = query
+ 
+    # ---------------------------
+    # PDF Download Button
+    # shown after any result exists
+    # ---------------------------
+    if st.session_state.last_result:
+        st.divider()
+        if st.button("📄 Generate PDF Report"):
+            pdf = create_pdf(
+                st.session_state.last_query,
+                st.session_state.last_result
+            )
+            st.download_button(
+                label="⬇️ Download Report as PDF",
+                data=pdf,
+                file_name="research_report.pdf",
+                mime="application/pdf"
+            )
+ 

@@ -65,7 +65,7 @@ def run_agent(query: str) -> str:
      # Handle identity questions directly
     identity_keywords = ["your name", "who are you", "what are you", "about you", "who built you", "what is your name"]
     if any(keyword in query.lower() for keyword in identity_keywords):
-        return "I'm **OmniSearch AI**, a Multi-Tool AI Research Agent built by Harish Lohar (Pre final year engineering student). I can help you research companies, get stock prices, search the web, and find Wikipedia summaries. Try asking me to analyze a company!"
+        return "I'm a Multi-Tool AI Research Agent built by Harish Lohar (Pre final year engineering student). I can help you research companies, get stock prices, search the web, and find Wikipedia summaries. Try asking me to analyze a company!"
     try:
         response = agent_executor.invoke({"input": query})
         return response.get("output", "No response generated.")
