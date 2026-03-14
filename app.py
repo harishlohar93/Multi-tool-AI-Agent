@@ -106,7 +106,7 @@ with st.sidebar:
 # ---------------------------
 with col1:
 
-    st.title("🤖 Multi-Tool AI Agent")
+    st.title("🤖OmniSearch AI - Multi-Tool AI Agent")
     st.caption("Research assistant powered by LLaMA 3 + LangChain")
 
     # Show chat history
